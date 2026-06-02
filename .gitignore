@@ -1,0 +1,49 @@
+# Entorno virtual
+venv/
+env/
+.venv/
+
+# Configuración y Secretos
+.env
+*.env
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Base de datos SQLite (Datos de producción)
+*.db
+*.sqlite
+*.sqlite3
+mermelab_v2.db
+mermelada.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node/Frontend (en caso de usar herramientas de build)
+node_modules/
+npm-debug.log*
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log

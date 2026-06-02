@@ -1,0 +1,121 @@
+{% extends 'base.html' %} {% block title %}Mermas y Residuos | MermeLAB{%
+endblock %} {% block content %}
+<div class="max-w-3xl mx-auto px-4 py-12">
+  <div class="grid grid-cols-1 gap-12 justify-items-center">
+    <div
+      class="w-full bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+    >
+      <div class="flex items-center gap-4 mb-6">
+        <div
+          class="h-12 w-12 rounded-2xl bg-red-600 text-white flex items-center justify-center"
+        >
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">Registro de Residuos</h1>
+          <p class="text-gray-500">
+            Documenta pérdidas operativas para ajustar el inventario real.
+          </p>
+        </div>
+      </div>
+
+      <form id="residuo-form" class="space-y-6">
+        <div>
+          <label
+            class="block text-xs font-semibold uppercase text-gray-500 mb-2"
+          >
+            Materia Prima
+          </label>
+          <select
+            id="id_ingrediente"
+            required
+            class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 transition-all"
+          ></select>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase text-gray-500 mb-2"
+            >
+              Cantidad a Descontar
+            </label>
+            <input
+              type="number"
+              id="cantidad"
+              step="0.01"
+              required
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 transition-all"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase text-gray-500 mb-2"
+            >
+              Motivo / Justificación
+            </label>
+            <select
+              id="motivo"
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 transition-all"
+            >
+              <option value="Dañado">Dañado / Podrido</option>
+              <option value="Vencido">Fecha Vencida</option>
+              <option value="Derrame">Derrame / Accidente</option>
+              <option value="Error de Pesaje">Error de Pesaje</option>
+            </select>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-red-600 text-white py-4 rounded-3xl font-bold shadow-lg hover:bg-red-700 transition-all"
+        >
+          Registrar Merma y Actualizar Stock
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block custom_js %}
+<script>
+  const loadIngredientes = async () => {
+    const res = await fetch(`${window.API_BASE}/api/inventario`);
+    const items = await res.json();
+    const select = document.getElementById("id_ingrediente");
+    select.innerHTML = items
+      .map(
+        (i) =>
+          `<option value="${i.id}">${i.nombre} (Stock: ${i.stock} ${i.unidad})</option>`,
+      )
+      .join("");
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadIngredientes();
+    document.getElementById("residuo-form").onsubmit = async (e) => {
+      e.preventDefault();
+      const payload = {
+        id_ingrediente: Number(document.getElementById("id_ingrediente").value),
+        cantidad: Number(document.getElementById("cantidad").value),
+        motivo: document.getElementById("motivo").value,
+      };
+
+      if (!payload.cantidad || payload.cantidad <= 0) {
+        alert("Ingresa una cantidad válida mayor que cero.");
+        return;
+      }
+
+      const res = await fetch(`${window.API_BASE}/api/inventario/residuos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        alert("Residuo registrado con éxito");
+        location.reload();
+      } else {
+        const err = await res.json();
+        alert(err.error || "No se pudo registrar la merma.");
+      }
+    };
+  });
+</script>
+{% endblock %}

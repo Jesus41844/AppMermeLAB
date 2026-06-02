@@ -1,0 +1,107 @@
+﻿{% extends 'base.html' %} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block content %}
+<section id="dashboard" class="space-y-8 py-8">
+  <header
+    class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border-b border-gray-200 pb-6"
+  >
+    <div class="space-y-3">
+      <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+        COIL 2026
+      </h1>
+      <p class="text-base text-slate-600">Aplicativo de recetas</p>
+      <p class="text-sm text-slate-500">
+        Universidad Tecnológica de Panamá - Universidad del Valle de Guatemala,
+        Campus Sur
+      </p>
+    </div>
+    <div>
+      <span
+        class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.23em] text-emerald-800"
+      >
+        <span class="h-2.5 w-2.5 rounded-full bg-emerald-800"></span>
+        SISTEMA ACTIVO
+      </span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <a
+      href="{{ url_for('views.produccion') }}"
+      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <h3 class="text-base font-semibold text-slate-900 mb-2">Módulo Planta</h3>
+      <p class="text-sm text-slate-500 leading-relaxed">
+        Cálculos de recetas y gestión de lotes activos.
+      </p>
+    </a>
+
+    <a
+      href="{{ url_for('views.inventario') }}"
+      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <h3 class="text-base font-semibold text-slate-900 mb-2">Inventario</h3>
+      <p class="text-sm text-slate-500 leading-relaxed">
+        Gestión de insumos y puntos de reorden.
+      </p>
+    </a>
+
+    <a
+      href="{{ url_for('views.recetas') }}"
+      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <h3 class="text-base font-semibold text-slate-900 mb-2">Recetas</h3>
+      <p class="text-sm text-slate-500 leading-relaxed">
+        Consulta y edición de fórmulas de mermelada.
+      </p>
+    </a>
+
+    <a
+      href="{{ url_for('views.ventas') }}"
+      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <h3 class="text-base font-semibold text-slate-900 mb-2">Ventas</h3>
+      <p class="text-sm text-slate-500 leading-relaxed">
+        Despacho de producto terminado y seguimiento de pedidos.
+      </p>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div
+        class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1"
+      >
+        Lotes Completados
+      </div>
+      <div class="text-3xl font-black text-emerald-700" id="stat-lotes">-</div>
+    </div>
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div
+        class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1"
+      >
+        Alertas Stock Mínimo
+      </div>
+      <div class="text-3xl font-black text-red-600" id="stat-alertas">0</div>
+    </div>
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div
+        class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1"
+      >
+        Recetas Activas
+      </div>
+      <div class="text-3xl font-black text-emerald-700" id="stat-recetas">
+        -
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block custom_js %}
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/inicio.js') }}"
+></script>
+{% endblock %}

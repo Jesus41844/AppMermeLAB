@@ -1,0 +1,239 @@
+{% extends 'base.html' %} {% block title %}Recetas | MermeLAB{% endblock %} {%
+block content %}
+<div
+  id="error-msg"
+  class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded shadow-sm"
+></div>
+
+<section id="section-recetas">
+  <div
+    class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"
+  >
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Recetas Disponibles</h2>
+      <p class="text-sm text-slate-500 mt-1">
+        Recetas cargadas desde la base de datos:
+        <span id="receta-count" class="font-bold text-emerald-700">0</span>
+      </p>
+    </div>
+    <button
+      onclick="UI.openModal('modal-receta')"
+      class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors"
+    >
+      <i class="fas fa-plus mr-2"></i>Nueva Receta
+    </button>
+  </div>
+
+  <div
+    id="recipe-cards"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    <!-- Renderizado dinámico desde recetas.js -->
+  </div>
+</section>
+
+<style>
+  #modal-preview .modal-panel {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #modal-preview .modal-panel::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+</style>
+
+<div
+  id="modal-preview"
+  class="hidden fixed inset-0 z-[110] modal-overlay flex items-center justify-center p-4 bg-slate-900/60"
+  onclick="SeccionRecetas.clearPreview()"
+>
+  <div
+    class="modal-panel bg-white rounded-2xl w-full max-w-[75vw] max-h-[90vh] overflow-y-auto shadow-2xl"
+    style="width: min(95vw, 90rem)"
+    onclick="event.stopPropagation()"
+  >
+    <div class="p-6 border-b flex justify-between items-center">
+      <div class="min-w-0">
+        <h3
+          id="preview-receta-title"
+          class="text-2xl font-bold text-gray-900 truncate"
+        ></h3>
+        <p id="preview-receta-subtitle" class="text-sm text-slate-500 mt-2"></p>
+      </div>
+      <button
+        type="button"
+        onclick="SeccionRecetas.clearPreview()"
+        class="modal-close-btn"
+        aria-label="Cerrar previsualización"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="recipe-preview-content" class="p-6 w-full"></div>
+  </div>
+</div>
+
+<div
+  id="modal-receta"
+  class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4"
+>
+  <div
+    class="modal-panel bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+  >
+    <div class="p-6 border-b flex justify-between items-center">
+      <h3 class="text-xl font-bold">Crear Nueva Receta</h3>
+      <button
+        onclick="UI.closeModal('modal-receta')"
+        class="modal-close-btn"
+        aria-label="Cerrar modal de receta"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form id="form-nueva-receta" class="p-6 space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2">
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Nombre</label
+          >
+          <input
+            type="text"
+            name="nombre"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Frascos Base</label
+          >
+          <input
+            type="number"
+            name="cantidad_frascos_base"
+            value="12"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Gramos/Frasco</label
+          >
+          <input
+            type="number"
+            name="tamano_frasco"
+            value="250"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Brix Min.</label
+          >
+          <input
+            type="number"
+            name="brix_min"
+            step="0.1"
+            min="0"
+            value="55.0"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Brix Max.</label
+          >
+          <input
+            type="number"
+            name="brix_max"
+            step="0.1"
+            min="0"
+            value="65.0"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Temp. Cocción Min. (°C)</label
+          >
+          <input
+            type="number"
+            name="temperatura_min"
+            step="0.1"
+            min="0"
+            value="90.0"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Temp. Cocción Max. (°C)</label
+          >
+          <input
+            type="number"
+            name="temperatura_max"
+            step="0.1"
+            min="0"
+            value="100.0"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div class="col-span-2">
+          <label class="text-xs font-bold uppercase text-gray-500"
+            >Tiempo de Preparación (min)</label
+          >
+          <input
+            type="number"
+            name="tiempo_preparacion_min"
+            min="1"
+            value="30"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+      </div>
+      <div id="ingredientes-dinamicos" class="space-y-2">
+        <label class="text-xs font-bold uppercase text-gray-500"
+          >Ingredientes</label
+        >
+        <div class="flex gap-2">
+          <input
+            type="text"
+            placeholder="Nombre"
+            class="flex-1 p-2 border rounded text-sm ing-nombre"
+          />
+          <input
+            type="number"
+            placeholder="Cant"
+            class="w-20 p-2 border rounded text-sm ing-cant"
+          />
+          <input
+            type="text"
+            placeholder="Unid"
+            class="w-16 p-2 border rounded text-sm ing-unid"
+          />
+        </div>
+      </div>
+      <button
+        type="button"
+        onclick="SeccionRecetas.addIngredienteInput()"
+        class="text-emerald-600 text-xs font-bold"
+      >
+        + Añadir Ingrediente
+      </button>
+      <button
+        type="submit"
+        class="w-full bg-emerald-600 text-white py-3 rounded-lg font-bold"
+      >
+        Guardar Receta
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %} {% block custom_js %}
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/recetas.js') }}"
+></script>
+{% endblock %}

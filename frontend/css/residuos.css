@@ -1,0 +1,56 @@
+/* Página de Residuos */
+
+.residuos-shell {
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.residuos-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2rem;
+}
+
+.residuos-card h1,
+.residuos-card p {
+  margin: 0;
+}
+
+.residuos-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.residuos-form input,
+.residuos-form select {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: 0.95rem 1rem;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  font-weight: 700;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}

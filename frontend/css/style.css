@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@import url("index.css");
+@import url("produccion.css");
+@import url("inventario.css");
+@import url("recetas.css");
+@import url("residuos.css");
+@import url("resultado.css");
+@import url("ventas.css");
+
+:root {
+  --color-primary: #0f766e;
+  --color-primary-dark: #14532d;
+  --color-secondary: #38bdf8;
+  --bg-body: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-soft: #f1f5f9;
+  --border: rgba(148, 163, 184, 0.22);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-heading: #111827;
+  --text-tertiary: #64748b;
+
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+
+  --font-main: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --shadow-sm: 0 10px 25px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 20px 40px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.08),
+      transparent 28%
+    ),
+    var(--bg-body);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Layout Core --- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+nav a,
+nav button {
+  text-decoration: none;
+}
+
+/* --- Typography & Hierarchy --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+p,
+span,
+label,
+button,
+input,
+select,
+textarea {
+  color: var(--text-main);
+}
+
+.text-muted,
+.text-gray-500,
+.text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* --- Reusable Components --- */
+button,
+.btn,
+.bg-emerald-600 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: 0.95rem !important;
+  padding: 0.9rem 1.2rem !important;
+  font-size: 0.95rem !important;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+button:hover,
+.btn:hover,
+.bg-emerald-600:hover {
+  background-color: var(--color-primary-dark) !important;
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(16, 185, 129, 0.25);
+  outline-offset: 2px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1rem;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.12);
+}
+
+textarea {
+  min-height: 110px;
+}
+
+.bg-white,
+.card,
+.card-panel,
+.recipe-card,
+.dashboard-card,
+.inventory-panel,
+.venta-card,
+.venta-info,
+.resultado-panel,
+.residuos-card,
+.modal-panel,
+.form-card,
+.result-card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.group.bg-white,
+.dashboard-card,
+.recipe-card,
+.inventory-panel,
+.venta-card,
+.venta-info,
+.resultado-panel,
+.residuos-card,
+.modal-panel,
+.form-card,
+.result-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.group.bg-white:hover,
+.recipe-card:hover,
+.dashboard-card:hover,
+.inventory-panel:hover,
+.venta-card:hover,
+.venta-info:hover,
+.residuos-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md) !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
+}
+
+.card-header,
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.badge,
+.status-pill,
+.dashboard-status,
+.result-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.result-tag {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--color-secondary);
+}
+
+#modo-planta {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.24);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+}
+
+#modo-planta label {
+  color: var(--color-primary);
+}
+
+#modo-planta input {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.16) !important;
+}
+
+/* --- Navigation --- */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.94rem;
+  color: var(--text-muted) !important;
+  padding: 0.7rem 1.05rem !important;
+  border-radius: 0.9rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: var(--color-primary) !important;
+}
+
+.active-link {
+  color: var(--color-primary) !important;
+  background: rgba(16, 185, 129, 0.14) !important;
+  font-weight: 700;
+}
+
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+.modal-panel {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.modal-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.modal-panel iframe {
+  width: 100%;
+  min-height: 450px;
+  border: none;
+}
+
+/* --- Animations --- */
+#resultados {
+  animation: slideUp 300ms ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Empty State --- */
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.75);
+}

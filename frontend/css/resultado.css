@@ -1,0 +1,57 @@
+/* Página de Resultado */
+
+.resultado-shell {
+  padding: 2rem 0;
+}
+
+.resultado-panel {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: var(--shadow-card);
+  padding: 2rem;
+}
+
+.resultado-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.resultado-header h1 {
+  margin: 0;
+}
+
+.resultado-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resultado-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.resultado-sidebar {
+  background: rgba(248, 250, 252, 0.95);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.no-print {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}

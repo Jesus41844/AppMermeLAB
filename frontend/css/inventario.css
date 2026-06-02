@@ -1,0 +1,82 @@
+/* Página de Inventario */
+
+.inventory-panel {
+  padding: 2rem;
+  background: var(--bg-surface);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.inventory-table-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: var(--bg-surface);
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 1rem 1.25rem;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.inventory-table thead {
+  background: rgba(248, 250, 252, 0.95);
+}
+
+.inventory-table th {
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.inventory-table tbody tr:hover {
+  background: rgba(229, 246, 255, 0.8);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+}
+
+.modal-panel {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: var(--shadow-card);
+  width: min(100%, 36rem);
+}
+
+.modal-panel .modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.modal-panel .modal-body {
+  padding: 1.5rem;
+}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventario | MermeLAB{% endblock %}
+
+{% block content %}
+      <div
+        id="error-msg"
+        class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded shadow-sm"
+      ></div>
+
+      <div
+        class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+      >
+        <div
+          class="p-6 border-b border-gray-100 flex justify-between items-center"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">
+              Inventario de Materiales
+            </h2>
+            <p class="text-sm text-gray-500 mt-1">
+              Elige si quieres registrar un nuevo material o aumentar el stock de uno existente.
+            </p>
+          </div>
+          <div class="flex gap-3">
+            <button
+              type="button"
+              onclick="SeccionInventario.openModal('new')"
+              class="text-emerald-600 hover:text-emerald-800 font-bold text-sm"
+            >
+              <i class="fas fa-plus-circle mr-1"></i>Nuevo Material
+            </button>
+            <button
+              type="button"
+              onclick="SeccionInventario.openModal('existing')"
+              class="text-slate-600 hover:text-slate-900 font-bold text-sm"
+            >
+              <i class="fas fa-boxes mr-1"></i>Aumentar Stock
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold">
+              <tr>
+                <th class="px-6 py-4">Ingrediente</th>
+                <th class="px-6 py-4 text-center">Stock Actual</th>
+                <th class="px-6 py-4 text-center">Unidad</th>
+                <th class="px-6 py-4 text-right">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table" class="divide-y divide-gray-100">
+              <!-- Cargado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
+  <div
+    id="modal-ingrediente"
+    class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4"
+  >
+    <div class="modal-panel bg-white rounded-2xl w-full max-w-md overflow-hidden">
+      <div class="p-6 border-b flex justify-between items-center">
+        <h3 id="modal-ingredient-title" class="text-xl font-bold">Añadir al Inventario</h3>
+        <button onclick="UI.closeModal('modal-ingrediente')" class="modal-close-btn" aria-label="Cerrar modal de ingrediente">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="form-nuevo-ingrediente" class="p-6 space-y-4">
+        <div class="flex gap-2 text-sm">
+          <button type="button" id="mode-new-btn" class="flex-1 rounded-full border border-emerald-600 bg-emerald-600 text-white py-2 font-bold">
+            Nuevo Material
+          </button>
+          <button type="button" id="mode-existing-btn" class="flex-1 rounded-full border border-slate-300 bg-slate-100 text-slate-700 py-2 font-bold">
+            Aumentar Stock
+          </button>
+        </div>
+
+        <div id="block-new" class="space-y-4">
+          <div>
+            <label class="text-xs font-bold uppercase text-gray-500">Nombre del Material</label>
+            <input type="text" id="ing-nombre" class="w-full p-3 border rounded-xl" />
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label class="text-xs font-bold uppercase text-gray-500">Stock Inicial</label>
+              <input type="number" id="ing-stock" step="0.01" value="0" class="w-full p-3 border rounded-xl" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase text-gray-500">Stock Mínimo</label>
+              <input type="number" id="ing-stock-minimo" step="0.01" value="0" class="w-full p-3 border rounded-xl" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase text-gray-500">Unidad</label>
+              <input type="text" id="ing-unidad" placeholder="kg, lb, g" class="w-full p-3 border rounded-xl" />
+            </div>
+          </div>
+        </div>
+
+        <div id="block-existing" class="hidden space-y-4">
+          <div>
+            <label class="text-xs font-bold uppercase text-gray-500">Material existente</label>
+            <select id="ing-existing" class="w-full p-3 border rounded-xl bg-white"></select>
+          </div>
+          <div>
+            <label class="text-xs font-bold uppercase text-gray-500">Unidad actual</label>
+            <input type="text" id="ing-existing-unidad" class="w-full p-3 border rounded-xl bg-slate-50" disabled />
+          </div>
+          <div>
+            <label class="text-xs font-bold uppercase text-gray-500">Cantidad a agregar</label>
+            <input type="number" id="ing-stock-amount" step="0.01" value="0" class="w-full p-3 border rounded-xl" />
+          </div>
+        </div>
+
+        <button type="submit" id="submit-ingredient-btn" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold">Registrar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block custom_js %}
+<script type="module" src="{{ url_for('static', filename='js/inventario.js') }}"></script>
+{% endblock %}

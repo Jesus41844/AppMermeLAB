@@ -1,0 +1,193 @@
+{% extends 'base.html' %} {% block title %}Producción | MermeLAB{% endblock %}
+{% block content %}
+<div
+  id="error-msg"
+  class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded shadow-sm"
+></div>
+
+<section id="section-produccion">
+  <div
+    id="produccion-container"
+    class="max-w-3xl mx-auto px-4 py-12 transition-all duration-700 ease-in-out"
+  >
+    <div class="space-y-8" id="layout-wrapper">
+      <div
+        id="form-panel"
+        class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+      >
+        <h2
+          class="text-3xl font-bold mb-6 text-center flex items-center justify-center gap-3"
+        >
+          <i class="fas fa-calculator text-emerald-600"></i>
+          Nueva Producción
+        </h2>
+        <form id="calc-form" class="space-y-6">
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase text-gray-500 mb-2"
+            >
+              Seleccionar Sabor
+            </label>
+            <select
+              id="receta"
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none"
+            ></select>
+          </div>
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase text-gray-500 mb-2"
+            >
+              Cantidad de Frascos
+            </label>
+            <input
+              type="number"
+              id="frascos_deseados"
+              min="1"
+              placeholder="Ej: 24"
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none"
+            />
+          </div>
+          <button
+            type="button"
+            id="btn-calcular"
+            class="w-full bg-emerald-600 text-white py-4 rounded-3xl font-bold hover:bg-emerald-700 transition-all shadow-lg"
+          >
+            Calcular Ingredientes
+          </button>
+        </form>
+      </div>
+      <div
+        id="resultados"
+        class="hidden bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+      >
+        <!-- Cabecera exclusiva para impresión -->
+        <div class="print-header">
+          <div>
+            <h1 class="text-xl font-bold text-emerald-800">
+              MermeLAB - Reporte de Producción
+            </h1>
+            <p class="text-xs text-gray-500" id="print-date"></p>
+          </div>
+          <i class="fas fa-flask text-3xl text-emerald-600"></i>
+        </div>
+
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h3 class="text-2xl font-bold text-emerald-800" id="res-producto">
+              -
+            </h3>
+            <p class="text-sm text-gray-400" id="res-lote"></p>
+          </div>
+          <div
+            class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+            id="res-rendimiento"
+          ></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <p class="text-xs text-gray-500 uppercase">Grados Brix</p>
+            <p class="font-bold text-lg" id="res-brix">-</p>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <p class="text-xs text-gray-500 uppercase">Temp. Cocción</p>
+            <p class="font-bold text-lg" id="res-temp">-</p>
+          </div>
+        </div>
+
+        <h4 class="font-bold text-gray-700 mb-3 border-b pb-2">
+          Ingredientes Requeridos
+        </h4>
+        <ul id="lista-ingredientes" class="space-y-3 mb-6"></ul>
+
+        <!-- MODO PLANTA: CONTROL DE CALIDAD -->
+        <div
+          id="modo-planta"
+          class="mt-8 p-6 bg-emerald-900 text-white rounded-2xl shadow-inner border border-teal-800"
+        >
+          <h4
+            class="text-emerald-300 text-[10px] font-bold uppercase tracking-widest mb-4 flex items-center"
+          >
+            <i class="fas fa-industry mr-2"></i> Ejecución en Planta
+          </h4>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-[10px] text-emerald-300 uppercase mb-1"
+                >°Brix Medido</label
+              >
+              <input
+                type="number"
+                id="brix-real"
+                step="0.1"
+                class="w-full bg-emerald-800 border-b-2 border-emerald-500 text-3xl font-bold p-2 outline-none focus:bg-emerald-700 transition-colors"
+              />
+            </div>
+            <div>
+              <label class="block text-[10px] text-emerald-300 uppercase mb-1"
+                >Temp Max (°C)</label
+              >
+              <input
+                type="number"
+                id="temp-real"
+                step="0.1"
+                class="w-full bg-emerald-800 border-b-2 border-emerald-500 text-3xl font-bold p-2 outline-none focus:bg-emerald-700 transition-colors"
+              />
+            </div>
+          </div>
+          <div class="mt-6 flex gap-4">
+            <button
+              onclick="SeccionProduccion.previsualizarReporte()"
+              class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded-lg font-bold text-sm transition-colors border border-white/20"
+            >
+              <i class="fas fa-eye mr-2"></i>Previsualizar
+            </button>
+            <button
+              id="btn-confirmar-lote"
+              class="flex-[2] bg-emerald-500 hover:bg-emerald-400 py-3 rounded-lg font-bold text-sm shadow-lg transition-all active:scale-95"
+            >
+              <i class="fas fa-check-double mr-2"></i>Finalizar y Descontar
+              Stock
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL DE PREVISUALIZACIÓN PDF -->
+<div
+  id="modal-preview"
+  class="hidden fixed inset-0 modal-overlay z-[200] flex items-center justify-center p-6"
+  onclick="UI.closeModal('modal-preview')"
+>
+  <div
+    class="modal-panel w-full max-w-4xl max-h-[90vh] rounded-3xl flex flex-col overflow-hidden"
+    onclick="event.stopPropagation()"
+  >
+    <div class="p-4 border-b flex justify-between items-center bg-gray-50">
+      <h3 class="font-bold text-gray-700">
+        Previsualización del Reporte de Lote
+      </h3>
+      <button
+        onclick="UI.closeModal('modal-preview')"
+        class="modal-close-btn"
+        aria-label="Cerrar modal"
+      >
+        <i class="fas fa-times fa-lg"></i>
+      </button>
+    </div>
+    <iframe id="pdf-frame" class="w-full h-[calc(100vh-18rem)]"></iframe>
+  </div>
+</div>
+{% endblock %} {% block custom_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/recetas.js') }}"
+></script>
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/produccion.js') }}"
+></script>
+{% endblock %}

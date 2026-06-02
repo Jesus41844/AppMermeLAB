@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% block title %}Resultado del Cálculo | MermeLAB{%
+endblock %} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-8 no-print">
+    <a
+      href="{{ url_for('views.produccion') }}"
+      class="text-gray-500 hover:text-emerald-600 font-bold"
+    >
+      <i class="fas fa-arrow-left mr-2"></i>Volver a Producción
+    </a>
+    <button
+      onclick="SeccionProduccion.previsualizarReporte()"
+      class="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-700 transition-all"
+    >
+      <i class="fas fa-file-pdf mr-2"></i>Imprimir Reporte Técnico
+    </button>
+  </div>
+
+  <div
+    id="resultados"
+    class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200 p-8 md:p-12"
+  >
+    <div
+      class="flex flex-col md:flex-row justify-between items-start border-b border-gray-100 pb-8 mb-8 gap-4"
+    >
+      <div>
+        <span
+          class="text-xs font-black text-emerald-500 uppercase tracking-widest"
+          >Escalamiento de Producción</span
+        >
+        <h1 class="text-4xl font-black text-gray-900 mt-1" id="res-producto">
+          -
+        </h1>
+        <p class="text-gray-400 font-mono mt-1" id="res-lote"></p>
+      </div>
+      <div class="text-right">
+        <div class="text-xs font-bold text-gray-400 uppercase">
+          Rendimiento Estimado
+        </div>
+        <div class="text-2xl font-black text-emerald-700" id="res-rendimiento">
+          -
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800 mb-6 flex items-center">
+          <i class="fas fa-list-ul mr-3 text-emerald-500"></i>Materiales
+          Requeridos
+        </h3>
+        <ul id="lista-ingredientes" class="space-y-4 font-mono text-sm"></ul>
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+        <h3 class="text-lg font-bold text-gray-800 mb-6">
+          Parámetros de Cocción
+        </h3>
+        <div class="space-y-6">
+          <div>
+            <label
+              class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"
+              >Rango Brix Sugerido</label
+            >
+            <div class="text-3xl font-black text-emerald-600" id="res-brix">
+              -
+            </div>
+          </div>
+          <div>
+            <label
+              class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"
+              >Temperatura Objetivo</label
+            >
+            <div class="text-3xl font-black text-emerald-600" id="res-temp">
+              -
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="modal-preview"
+    class="hidden fixed inset-0 modal-overlay z-[200] flex items-center justify-center p-4"
+  >
+    <div
+      class="modal-panel bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden"
+    >
+      <div class="p-4 border-b flex justify-between items-center bg-gray-50">
+        <h3 class="font-bold text-gray-700">
+          Previsualización del Reporte Técnico
+        </h3>
+        <button
+          onclick="UI.closeModal('modal-preview')"
+          class="modal-close-btn"
+          aria-label="Cerrar previsualización"
+        >
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+      </div>
+      <iframe id="pdf-frame" class="w-full h-[calc(100vh-18rem)]"></iframe>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block custom_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/produccion.js') }}"
+></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const data = window.AppState && window.AppState.lastCalculationData;
+    if (data && window.SeccionProduccion) {
+      window.SeccionProduccion.renderResultados(data);
+    }
+  });
+</script>
+{% endblock %}

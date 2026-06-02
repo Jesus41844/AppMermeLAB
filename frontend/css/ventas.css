@@ -1,0 +1,53 @@
+/* Página de Ventas */
+
+.ventas-shell {
+  padding: 2rem 0;
+}
+
+.ventas-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .ventas-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.venta-card,
+.venta-info {
+  background: var(--bg-surface);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2rem;
+}
+
+.venta-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.venta-form input,
+.venta-form select {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: 0.95rem 1rem;
+}
+
+.venta-info h3 {
+  margin-top: 0;
+}
+
+.venta-note {
+  color: var(--color-secondary);
+  line-height: 1.85;
+}

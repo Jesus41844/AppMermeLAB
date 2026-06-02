@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}AppMermeLAB{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    {% block custom_css %}{% endblock %}
+  </head>
+  <body class="bg-gray-50 text-gray-800 min-h-screen">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <a
+              href="{{ url_for('views.index') }}"
+              class="flex items-center space-x-3"
+            >
+              <div
+                class="h-10 w-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center"
+              >
+                <i class="fas fa-flask"></i>
+              </div>
+              <span
+                class="text-lg font-semibold tracking-tight text-emerald-800"
+                >MermeLAB</span
+              >
+            </a>
+            <div class="lg:flex items-center space-x-4 ml-6">
+              <img
+                src="{{ url_for('static', filename='static/images/logo_utp.png') }}"
+                class="h-10 w-auto"
+                alt="UTP"
+              />
+              <img
+                src="{{ url_for('static', filename='static/images/logo_fisc.png') }}"
+                class="h-10 w-auto"
+                alt="FISC"
+              />
+              <img
+                src="{{ url_for('static', filename='static/images/logo_uvg.png') }}"
+                class="h-10 w-auto"
+                alt="UVG"
+              />
+            </div>
+          </div>
+
+          <div class="md:flex space-x-6 items-center">
+            <a
+              href="{{ url_for('views.index') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-inicio"
+              >Inicio</a
+            >
+            <a
+              href="{{ url_for('views.recetas') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-recetas"
+              >Recetas</a
+            >
+            <a
+              href="{{ url_for('views.produccion') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-produccion"
+              >Producción</a
+            >
+            <a
+              href="{{ url_for('views.inventario') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-inventario"
+              >Inventario</a
+            >
+            <a
+              href="{{ url_for('views.residuos') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-residuos"
+              >Residuos</a
+            >
+            <a
+              href="{{ url_for('views.ventas') }}"
+              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
+              id="nav-ventas"
+              >Ventas</a
+            >
+          </div>
+
+          <button
+            id="mobile-menu-button"
+            class="md:hidden inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            aria-label="Abrir menú"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div
+          id="mobile-menu"
+          class="md:hidden hidden mt-2 space-y-2 border-t border-slate-200 pt-4 pb-4"
+        >
+          <a
+            href="{{ url_for('views.index') }}"
+            class="nav-link block"
+            data-page="inicio"
+            >Inicio</a
+          >
+          <a
+            href="{{ url_for('views.recetas') }}"
+            class="nav-link block"
+            data-page="recetas"
+            >Recetas</a
+          >
+          <a
+            href="{{ url_for('views.produccion') }}"
+            class="nav-link block"
+            data-page="produccion"
+            >Producción</a
+          >
+          <a
+            href="{{ url_for('views.inventario') }}"
+            class="nav-link block"
+            data-page="inventario"
+            >Inventario</a
+          >
+          <a
+            href="{{ url_for('views.residuos') }}"
+            class="nav-link block"
+            data-page="residuos"
+            >Residuos</a
+          >
+          <a
+            href="{{ url_for('views.ventas') }}"
+            class="nav-link block"
+            data-page="ventas"
+            >Ventas</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      {% block content %}{% endblock %}
+    </main>
+
+    <div
+      id="global-loader"
+      class="hidden fixed inset-0 bg-white/80 backdrop-blur-sm z-[100] flex flex-col items-center justify-center"
+    >
+      <div
+        class="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"
+      ></div>
+      <p class="mt-4 text-emerald-800 font-medium">Procesando datos...</p>
+    </div>
+
+    <script
+      type="module"
+      src="{{ url_for('static', filename='js/app.js') }}"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggle = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        if (toggle && menu) {
+          toggle.addEventListener("click", function () {
+            menu.classList.toggle("hidden");
+          });
+        }
+
+        const path = window.location.pathname.replace(/\/$/, "") || "/";
+        const pageKey =
+          path === "/" || path === "/index"
+            ? "inicio"
+            : path.replace(/^\//, "");
+
+        const desktopLink = document.getElementById(`nav-${pageKey}`);
+        if (desktopLink) {
+          desktopLink.classList.add("active-link");
+        }
+
+        const mobileLinks = document.querySelectorAll(
+          `#mobile-menu a[data-page="${pageKey}"]`,
+        );
+        mobileLinks.forEach((link) => link.classList.add("active-link"));
+      });
+    </script>
+    {% block custom_js %}{% endblock %}
+  </body>
+</html>
