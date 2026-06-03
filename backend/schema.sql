@@ -41,14 +41,6 @@ CREATE TABLE Mermelada (
     FOREIGN KEY (id_receta) REFERENCES Receta(id_receta) ON DELETE CASCADE
 );
 
-CREATE TABLE Cliente (
-    id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre TEXT NOT NULL,
-    telefono TEXT,
-    correo TEXT,
-    direccion TEXT
-);
-
 CREATE TABLE Ventas (
     id_venta INTEGER PRIMARY KEY AUTOINCREMENT,
     fecha DATE NOT NULL DEFAULT (date('now')),
