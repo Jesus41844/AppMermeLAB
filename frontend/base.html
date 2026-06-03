@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍓</text></svg>"
+    />
     <title>{% block title %}AppMermeLAB{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -15,11 +19,13 @@
     />
     {% block custom_css %}{% endblock %}
   </head>
-  <body class="bg-gray-50 text-gray-800 min-h-screen">
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4">
+  <body class="bg-gray-50 text-gray-800 min-h-screen pt-16">
+    <nav
+      class="bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 w-full z-50 border-b border-slate-200/60 shadow-md h-16 flex items-center transition-all duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="flex items-center justify-between h-16">
-          <div class="flex items-center">
+          <div class="flex items-center gap-3 lg:gap-5">
             <a
               href="{{ url_for('views.index') }}"
               class="flex items-center space-x-3"
@@ -29,118 +35,71 @@
               >
                 <i class="fas fa-flask"></i>
               </div>
-              <span
-                class="text-lg font-semibold tracking-tight text-emerald-800"
+              <span class="text-xl font-bold tracking-tight text-emerald-800 mr-1"
                 >MermeLAB</span
               >
             </a>
-            <div class="lg:flex items-center space-x-4 ml-6">
+
+            <div class="h-6 w-px bg-slate-200 mx-1 lg:mx-2"></div>
+
+            <div class="flex items-center gap-3 lg:gap-4">
               <img
                 src="{{ url_for('static', filename='static/images/logo_utp.png') }}"
-                class="h-10 w-auto"
+                class="h-8 lg:h-10 w-auto object-contain opacity-80 transition-opacity hover:opacity-100"
                 alt="UTP"
               />
               <img
                 src="{{ url_for('static', filename='static/images/logo_fisc.png') }}"
-                class="h-10 w-auto"
+                class="h-8 lg:h-10 w-auto object-contain opacity-80 transition-opacity hover:opacity-100"
                 alt="FISC"
               />
               <img
                 src="{{ url_for('static', filename='static/images/logo_uvg.png') }}"
-                class="h-10 w-auto"
+                class="h-6 lg:h-8 w-auto object-contain opacity-80 transition-opacity hover:opacity-100"
                 alt="UVG"
               />
             </div>
           </div>
 
-          <div class="md:flex space-x-6 items-center">
+          <!-- Enlaces de Navegación -->
+          <div class="flex space-x-1 items-center">
             <a
               href="{{ url_for('views.index') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-inicio"
+              class="nav-link"
               >Inicio</a
             >
             <a
               href="{{ url_for('views.recetas') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-recetas"
+              class="nav-link"
               >Recetas</a
             >
             <a
               href="{{ url_for('views.produccion') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-produccion"
+              class="nav-link"
               >Producción</a
             >
             <a
               href="{{ url_for('views.inventario') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-inventario"
+              class="nav-link"
               >Inventario</a
             >
             <a
               href="{{ url_for('views.residuos') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-residuos"
+              class="nav-link"
               >Residuos</a
             >
             <a
               href="{{ url_for('views.ventas') }}"
-              class="nav-link py-5 text-sm font-medium transition-colors hover:text-emerald-600"
               id="nav-ventas"
+              class="nav-link"
               >Ventas</a
             >
           </div>
-
-          <button
-            id="mobile-menu-button"
-            class="md:hidden inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            aria-label="Abrir menú"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-        <div
-          id="mobile-menu"
-          class="md:hidden hidden mt-2 space-y-2 border-t border-slate-200 pt-4 pb-4"
-        >
-          <a
-            href="{{ url_for('views.index') }}"
-            class="nav-link block"
-            data-page="inicio"
-            >Inicio</a
-          >
-          <a
-            href="{{ url_for('views.recetas') }}"
-            class="nav-link block"
-            data-page="recetas"
-            >Recetas</a
-          >
-          <a
-            href="{{ url_for('views.produccion') }}"
-            class="nav-link block"
-            data-page="produccion"
-            >Producción</a
-          >
-          <a
-            href="{{ url_for('views.inventario') }}"
-            class="nav-link block"
-            data-page="inventario"
-            >Inventario</a
-          >
-          <a
-            href="{{ url_for('views.residuos') }}"
-            class="nav-link block"
-            data-page="residuos"
-            >Residuos</a
-          >
-          <a
-            href="{{ url_for('views.ventas') }}"
-            class="nav-link block"
-            data-page="ventas"
-            >Ventas</a
-          >
-        </div>
       </div>
     </nav>
 
@@ -164,29 +123,20 @@
     ></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const toggle = document.getElementById("mobile-menu-button");
-        const menu = document.getElementById("mobile-menu");
-        if (toggle && menu) {
-          toggle.addEventListener("click", function () {
-            menu.classList.toggle("hidden");
-          });
-        }
+        // Lógica de activación de links mejorada
+        const path = window.location.pathname;
+        let pageKey = "inicio";
 
-        const path = window.location.pathname.replace(/\/$/, "") || "/";
-        const pageKey =
-          path === "/" || path === "/index"
-            ? "inicio"
-            : path.replace(/^\//, "");
+        if (path.includes("recetas")) pageKey = "recetas";
+        else if (path.includes("produccion")) pageKey = "produccion";
+        else if (path.includes("inventario")) pageKey = "inventario";
+        else if (path.includes("residuos")) pageKey = "residuos";
+        else if (path.includes("ventas")) pageKey = "ventas";
 
         const desktopLink = document.getElementById(`nav-${pageKey}`);
         if (desktopLink) {
           desktopLink.classList.add("active-link");
         }
-
-        const mobileLinks = document.querySelectorAll(
-          `#mobile-menu a[data-page="${pageKey}"]`,
-        );
-        mobileLinks.forEach((link) => link.classList.add("active-link"));
       });
     </script>
     {% block custom_js %}{% endblock %}

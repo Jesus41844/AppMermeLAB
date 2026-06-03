@@ -20,7 +20,7 @@ def create_app() -> Flask:
         __name__,
         template_folder=frontend_dir,
         static_folder=frontend_dir,
-        static_url_path=""
+        static_url_path="/static"
     )
     app.config.from_object(get_config())
 

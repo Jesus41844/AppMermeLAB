@@ -50,7 +50,6 @@
               </tr>
             </thead>
             <tbody id="inventory-table" class="divide-y divide-gray-100">
-              <!-- Cargado dinámicamente -->
             </tbody>
           </table>
         </div>
@@ -59,9 +58,10 @@
 
   <div
     id="modal-ingrediente"
-    class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4"
+    class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4 bg-slate-900/60"
+    onclick="UI.closeModal('modal-ingrediente')"
   >
-    <div class="modal-panel bg-white rounded-2xl w-full max-w-md overflow-hidden">
+    <div class="modal-panel bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
       <div class="p-6 border-b flex justify-between items-center">
         <h3 id="modal-ingredient-title" class="text-xl font-bold">Añadir al Inventario</h3>
         <button onclick="UI.closeModal('modal-ingrediente')" class="modal-close-btn" aria-label="Cerrar modal de ingrediente">
@@ -69,15 +69,6 @@
         </button>
       </div>
       <form id="form-nuevo-ingrediente" class="p-6 space-y-4">
-        <div class="flex gap-2 text-sm">
-          <button type="button" id="mode-new-btn" class="flex-1 rounded-full border border-emerald-600 bg-emerald-600 text-white py-2 font-bold">
-            Nuevo Material
-          </button>
-          <button type="button" id="mode-existing-btn" class="flex-1 rounded-full border border-slate-300 bg-slate-100 text-slate-700 py-2 font-bold">
-            Aumentar Stock
-          </button>
-        </div>
-
         <div id="block-new" class="space-y-4">
           <div>
             <label class="text-xs font-bold uppercase text-gray-500">Nombre del Material</label>

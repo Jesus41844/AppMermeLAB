@@ -77,10 +77,12 @@ block content %}
 
 <div
   id="modal-receta"
-  class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4"
+  class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4 bg-slate-900/60"
+  onclick="UI.closeModal('modal-receta')"
 >
   <div
-    class="modal-panel bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+    class="modal-panel bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
+    onclick="event.stopPropagation()"
   >
     <div class="p-6 border-b flex justify-between items-center">
       <h3 class="text-xl font-bold">Crear Nueva Receta</h3>

@@ -1,4 +1,5 @@
-﻿{% extends 'base.html' %} {% block custom_css %}
+﻿{% extends 'base.html' %} {% block title %}AppMermeLAB{% endblock %} {% block
+custom_css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/index.css') }}"
@@ -22,47 +23,35 @@
       <span
         class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.23em] text-emerald-800"
       >
-        <span class="h-2.5 w-2.5 rounded-full bg-emerald-800"></span>
-        SISTEMA ACTIVO
+        <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+        <span id="api-status">SISTEMA ACTIVO</span>
       </span>
     </div>
   </header>
 
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-    <a
-      href="{{ url_for('views.produccion') }}"
-      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-    >
+    <a href="{{ url_for('views.produccion') }}" class="mermelab-card p-6">
       <h3 class="text-base font-semibold text-slate-900 mb-2">Módulo Planta</h3>
       <p class="text-sm text-slate-500 leading-relaxed">
         Cálculos de recetas y gestión de lotes activos.
       </p>
     </a>
 
-    <a
-      href="{{ url_for('views.inventario') }}"
-      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-    >
+    <a href="{{ url_for('views.inventario') }}" class="mermelab-card p-6">
       <h3 class="text-base font-semibold text-slate-900 mb-2">Inventario</h3>
       <p class="text-sm text-slate-500 leading-relaxed">
         Gestión de insumos y puntos de reorden.
       </p>
     </a>
 
-    <a
-      href="{{ url_for('views.recetas') }}"
-      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-    >
+    <a href="{{ url_for('views.recetas') }}" class="mermelab-card p-6">
       <h3 class="text-base font-semibold text-slate-900 mb-2">Recetas</h3>
       <p class="text-sm text-slate-500 leading-relaxed">
         Consulta y edición de fórmulas de mermelada.
       </p>
     </a>
 
-    <a
-      href="{{ url_for('views.ventas') }}"
-      class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-    >
+    <a href="{{ url_for('views.ventas') }}" class="mermelab-card p-6">
       <h3 class="text-base font-semibold text-slate-900 mb-2">Ventas</h3>
       <p class="text-sm text-slate-500 leading-relaxed">
         Despacho de producto terminado y seguimiento de pedidos.

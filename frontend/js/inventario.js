@@ -13,13 +13,7 @@ export const SeccionInventario = {
       form.onsubmit = SeccionInventario.crear;
     }
 
-    const newBtn = document.getElementById("mode-new-btn");
-    const existingBtn = document.getElementById("mode-existing-btn");
     const select = document.getElementById("ing-existing");
-
-    if (newBtn) newBtn.onclick = () => SeccionInventario.setMode("new");
-    if (existingBtn)
-      existingBtn.onclick = () => SeccionInventario.setMode("existing");
     if (select) select.onchange = SeccionInventario.updateExistingUnit;
   },
 
@@ -34,8 +28,6 @@ export const SeccionInventario = {
     const blockNew = document.getElementById("block-new");
     const blockExisting = document.getElementById("block-existing");
     const title = document.getElementById("modal-ingredient-title");
-    const newBtn = document.getElementById("mode-new-btn");
-    const existingBtn = document.getElementById("mode-existing-btn");
     const submit = document.getElementById("submit-ingredient-btn");
 
     if (mode === "existing") {
@@ -43,35 +35,11 @@ export const SeccionInventario = {
       blockExisting.classList.remove("hidden");
       title.innerText = "Aumentar stock existente";
       submit.innerText = "Agregar stock";
-      newBtn.classList.remove("bg-emerald-600", "text-white");
-      newBtn.classList.add(
-        "border-slate-300",
-        "bg-slate-100",
-        "text-slate-700",
-      );
-      existingBtn.classList.remove(
-        "border-slate-300",
-        "bg-slate-100",
-        "text-slate-700",
-      );
-      existingBtn.classList.add("bg-emerald-600", "text-white");
     } else {
       blockNew.classList.remove("hidden");
       blockExisting.classList.add("hidden");
       title.innerText = "Registrar nuevo material";
       submit.innerText = "Registrar";
-      existingBtn.classList.remove("bg-emerald-600", "text-white");
-      existingBtn.classList.add(
-        "border-slate-300",
-        "bg-slate-100",
-        "text-slate-700",
-      );
-      newBtn.classList.remove(
-        "border-slate-300",
-        "bg-slate-100",
-        "text-slate-700",
-      );
-      newBtn.classList.add("bg-emerald-600", "text-white");
     }
 
     SeccionInventario.clearForm();

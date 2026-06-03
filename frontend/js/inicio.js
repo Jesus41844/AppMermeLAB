@@ -10,20 +10,19 @@ export const SeccionInicio = {
     try {
       const res = await fetch(`${API_BASE}/api/health`);
       const statusEl = document.getElementById("api-status");
+      if (!statusEl) return;
+
       if (res.ok) {
         statusEl.innerText = "En línea";
-        statusEl.previousElementSibling.classList.replace(
-          "bg-red-500",
-          "bg-emerald-500",
-        );
+        const dot = statusEl.previousElementSibling;
+        if (dot) dot.classList.replace("bg-red-500", "bg-emerald-500");
       } else throw new Error();
     } catch {
       const statusEl = document.getElementById("api-status");
+      if (!statusEl) return;
       statusEl.innerText = "Desconectado";
-      statusEl.previousElementSibling.classList.replace(
-        "bg-emerald-500",
-        "bg-red-500",
-      );
+      const dot = statusEl.previousElementSibling;
+      if (dot) dot.classList.replace("bg-emerald-500", "bg-red-500");
     }
   },
 

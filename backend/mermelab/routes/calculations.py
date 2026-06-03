@@ -354,10 +354,10 @@ def crear_receta():
             cantidad_frascos=int(data['cantidad_frascos_base']),
             tamano_frasco_gramos=int(data['tamano_frasco']),
             tiempo_preparacion_min=int(data['tiempo_preparacion_min']),
-            brix_min=data.get('brix_min') or None,
-            brix_max=data.get('brix_max') or None,
-            temperatura_min=data.get('temperatura_min') or data.get('temp_min') or None,
-            temperatura_max=data.get('temperatura_max') or data.get('temp_max') or None
+            brix_min=data.get('brix_min') if data.get('brix_min') is not None else None,
+            brix_max=data.get('brix_max') if data.get('brix_max') is not None else None,
+            temperatura_min=data.get('temperatura_min', data.get('temp_min')),
+            temperatura_max=data.get('temperatura_max', data.get('temp_max'))
         )
         db.session.add(nueva_receta)
         db.session.flush()

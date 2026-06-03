@@ -206,11 +206,11 @@ class RecipeCalculatorService:
             return False, str(e)
 
     @staticmethod
-    def registrar_venta(id_produccion: int, cantidad: int, precio_total: float) -> Tuple[bool, any]:
+    def registrar_venta(id_produccion: int, cantidad: int, precio_total: float | Decimal) -> Tuple[bool, any]:
         try:
             id_produccion = int(id_produccion)
             cantidad = int(cantidad)
-            precio_total = float(precio_total)
+            precio_total = Decimal(str(precio_total))
 
             produccion = Produccion.query.get(id_produccion)
             if not produccion or produccion.estado != 'completado':
