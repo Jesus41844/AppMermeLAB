@@ -3,6 +3,8 @@
 ![Estado](https://img.shields.io/badge/Estado-Finalizado-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-black)
+[![tests](https://github.com/Jesus41844/AppMermeLAB/actions/workflows/tests.yml/badge.svg)](https://github.com/Jesus41844/AppMermeLAB/actions/workflows/tests.yml)
+[![licencia](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
 
 AppMermeLAB es un aplicativo web tipo ERP (Enterprise Resource Planning) diseñado para optimizar y digitalizar las operaciones de un laboratorio de producción de mermeladas.
 
@@ -32,6 +34,76 @@ Si deseas correr este proyecto en tu entorno local, sigue estos pasos:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/TU_USUARIO/AppMermeLAB.git](https://github.com/TU_USUARIO/AppMermeLAB.git)
+   git clone https://github.com/Jesus41844/AppMermeLAB.git
    cd AppMermeLAB
    ```
+
+2. **Entorno virtual e dependencias:**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
+   pip install -r backend/requirements.txt
+   ```
+
+3. **Configuración:**
+   ```bash
+   cp .env.example .env             # Windows: copy .env.example .env
+   ```
+   Cambia `JWT_SECRET_KEY` por un valor propio. `DATABASE_URL` apunta por
+   defecto a `backend/mermelab_v2.db`, que está en `.gitignore`.
+
+4. **Correr la aplicación:**
+   ```bash
+   python backend/app.py
+   ```
+   Abre <http://localhost:5000>. Al arrancar se crea el esquema y se siembran
+   los datos de ejemplo, así que no hace falta ningún paso de migración.
+
+5. **Pruebas:**
+   ```bash
+   pytest backend/tests -q
+   ```
+
+## Estructura
+
+```
+backend/
+├── app.py                     # Wrapper para Gunicorn y ejecución directa
+├── conftest.py                # Hace importable el paquete `mermelab`
+├── schema.sql                 # Esquema SQLite de referencia
+├── mermelab/
+│   ├── __init__.py            # create_app: config, PRAGMA, seed, blueprints
+│   ├── config.py              # Configuración por entorno
+│   ├── extensions.py          # db, jwt, cors, migrate
+│   ├── models/                # Receta, Ingrediente, Produccion, Venta, Mermelada…
+│   ├── routes/                # Blueprints: calculations y views
+│   ├── services/              # RecipeCalculatorService
+│   ├── schemas.py             # Serialización con marshmallow
+│   └── seeds.py               # Datos de ejemplo
+└── tests/                     # Pruebas del motor de recetas
+frontend/                      # HTML, JS vanilla y Tailwind
+scripts/backup_restore.py      # Respaldo y restauración de la base
+```
+
+## Motor de cálculo de recetas
+
+El módulo de producción es la parte no trivial del sistema. Dada una receta y
+el inventario actual, `RecipeCalculatorService` responde si el lote es viable y
+cuánto sale:
+
+- **Grados Brix** — compara el mínimo y el máximo de la fórmula contra lo que
+  se mide en la cocción, y avisa cuando el resultado real se sale del rango.
+- **Frascos** — descuenta el factor de merma esperado para calcular cuántos
+  frascos salen por lote.
+- **Alertas de reorden** — señala los ingredientes que quedan por debajo del
+  punto de pedido.
+- **Mermas** — registra lo esperado frente a lo real durante la cocción.
+
+Los cálculos van en `Decimal`, no en `float`: los grados Brix y los
+porcentajes de merma no toleran error de punto flotante.
+
+## Pruebas
+
+`backend/tests/test_recipe_calculator.py` cubre el motor de recetas contra
+una base SQLite en memoria, sin depender de datos de producción. Corre en CI
+en cada push.
